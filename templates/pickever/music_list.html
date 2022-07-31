@@ -2,9 +2,9 @@
 {% block content %}
 <div class="container my-3">
     <table class="table">
-        <p><a href="{% url 'pickever:music_create' %}" class="btn btn-primary">음악 추가하기</a></p>
+        <p><a href="{% url 'pickever:music_create' %}" class="btn btn-danger">음악 추가하기</a></p>
         <thead>
-        <tr class="table-dark">
+        <tr class="table-danger">
             <th>번호</th>
             <th>음악</th>
             <th>작성일시</th>
@@ -16,7 +16,7 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>
-                <li>{{ music.title }}-{{ music.artist }}</a></li>
+                {{ music.title }} - {{ music.artist }}</a>
             </td>
             <td>{{ music.create_date }}</td>
         </tr>
