@@ -1,7 +1,12 @@
 <!-- 네비게이션바 -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger border-bottom sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'pickever:index' %}">Pickever</a>
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+            <a class="navbar-link" href="{% url 'pickever:music_create' %}">음악 추가하기</a>
+            </li>
+        </ul>
         <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
@@ -23,6 +28,9 @@
                     {% if not user.is_authenticated %}
                     <a class="nav-link" href="{% url 'common:signup' %}">회원가입</a>
                     {% endif %}
+                </li>
+                <li>
+                    <a class="nav-link" link href="http://52.78.34.29">설문조사</a>
                 </li>
             </ul>
         </div>
