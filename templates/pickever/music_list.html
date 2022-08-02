@@ -7,6 +7,7 @@
             <th>#</th>
             <th>음악</th>
             <th>작성일시</th>
+            <th> </th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +19,12 @@
                 {{ music.title }} - {{ music.artist }}</a>
             </td>
             <td>{{ music.create_date.time }}</td>
+            <td class="my-3">
+                 {% if request.user == music.author %}
+                 <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-danger"
+                    data-uri="{% url 'pickever:music_delete' music.id  %}">삭제</a>
+                 {% endif %}
+            </td>
         </tr>
         {% endfor %}
         {% else %}
@@ -28,4 +35,16 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
 {% endblock %}
