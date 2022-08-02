@@ -8,6 +8,7 @@
             <th>음악</th>
             <th>작성일시</th>
             <th> </th>
+            <th> </th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,11 @@
                  {% if request.user == music.author %}
                  <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-danger"
                     data-uri="{% url 'pickever:music_delete' music.id  %}">삭제</a>
+                 {% endif %}
+            </td>
+            <td class="my-3">
+                 {% if request.user == music.author %}
+                  <a href= "{% url 'pickever:report_create' %}" class="btn btn-danger">신고</a>
                  {% endif %}
             </td>
         </tr>

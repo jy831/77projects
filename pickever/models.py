@@ -8,10 +8,18 @@ class Music(models.Model):
     artist = models.CharField(max_length=200)
     create_date = models.DateTimeField()
     voter = models.ManyToManyField(User, related_name='voter')
-
-
-
     def __str__(self):
         return f'{self.title} - {self.artist}'
+
+class Report(models.Model):
+    content = models.TextField()
+    reporting = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reporting')
+    reported = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reported')
+    report_date = models.DateTimeField()
+
+
+
+
+
 
 

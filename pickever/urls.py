@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('music/create/', views.music_create, name='music_create'),
     path('music/delete/<int:music_id>/', views.music_delete, name='music_delete'),
+    path('report/create/', views.report_create, name='report_create')
 ]
