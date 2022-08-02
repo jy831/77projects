@@ -1,5 +1,5 @@
 from django import forms
-from pickever.models import Music
+from pickever.models import Music, Report
 
 
 class MusicForm(forms.ModelForm):
@@ -13,4 +13,15 @@ class MusicForm(forms.ModelForm):
         labels = {
             'title': '제목',
             'artist': '가수',
+        }
+
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = ['content']
+        widgets = {
+            'content': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'content': '신고내용',
         }
