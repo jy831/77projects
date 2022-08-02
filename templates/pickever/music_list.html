@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container my-3">
+    <!-- message 표시 -->
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+        {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul>
+            <li>{{ message.message }}</li>
+        </ul>
+        {% endfor %}
+    </div>
+    {% endif %}
     <table class="table">
         <thead>
         <tr class="table-danger">
@@ -21,13 +32,17 @@
             </td>
             <td>{{ music.create_date.time }}</td>
             <td class="my-3">
+                <a href="javascript:void(0)" data-uri="{% url 'pickever:music_vote' music.id  %}"
+               class="recommend btn btn-sm btn-outline-secondary"> 추천
+                <span class="badge rounded-pill bg-success">{{music.voter.count}}</span>
+            </a>
                  {% if request.user == music.author %}
                  <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-danger"
                     data-uri="{% url 'pickever:music_delete' music.id  %}">삭제</a>
                  {% endif %}
             </td>
             <td class="my-3">
-                 {% if request.user == music.author %}
+                 {% if request.user != music.author %}
                   <a href= "{% url 'pickever:report_create' %}" class="btn btn-danger">신고</a>
                  {% endif %}
             </td>
@@ -48,6 +63,14 @@ const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
     element.addEventListener('click', function() {
         if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+const recommend_elements = document.getElementsByClassName("recommend");
+Array.from(recommend_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 추천하시겠습니까?")) {
             location.href = this.dataset.uri;
         };
     });
