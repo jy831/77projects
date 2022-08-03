@@ -16,6 +16,9 @@ class Report(models.Model):
     reporting = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reporting')
     reported = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reported')
     report_date = models.DateTimeField()
+    def __str__(self):
+        return self.content
+
 
 
 
