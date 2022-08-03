@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
 from .models import Music, Report
 from .forms import MusicForm, ReportForm
-from django.contrib.auth.decorators import login_required
-
 def index(request):
     music_list = Music.objects.order_by('create_date')
     context = {'music_list': music_list}
@@ -23,6 +24,15 @@ def music_create(request):
         form = MusicForm()
     context = {'form': form}
     return render(request, 'pickever/music_form.html', context)
+
+@login_required(login_url='common:login')
+def music_vote(request, music_id):
+    music = get_object_or_404(Music, pk=music_id)
+    if request.user == music.author:
+        messages.error(request, '본인이 등록한 노래는 추천할수 없습니다')
+    else:
+        music.voter.add(request.user)
+    return redirect('pickever:index')
 
 def music_delete(request, music_id):
     music = get_object_or_404(Music, pk=music_id)
