@@ -25,3 +25,4 @@ class ReportForm(forms.ModelForm):
         labels = {
             'content': '신고내용',
         }
+

@@ -54,7 +54,8 @@ def report_create(request, music_id):
             report = form.save(commit=False)
             report.reporting = request.user
             report.reported = music.author
-            report.create_date = timezone.now()
+            report.reported_music = music.title
+            report.report_date = timezone.now()
             report.save()
             return redirect('pickever:index')
     else:
