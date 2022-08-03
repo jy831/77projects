@@ -17,6 +17,9 @@ class Report(models.Model):
     reported = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reported')
     reported_music= models.CharField(max_length=200)
     report_date = models.DateTimeField()
+    def __str__(self):
+        return self.content
+
 
 
 
