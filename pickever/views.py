@@ -5,6 +5,8 @@ from django.contrib import messages
 
 from .models import Music, Report
 from .forms import MusicForm, ReportForm
+
+
 def index(request):
     music_list = Music.objects.order_by('create_date')
     context = {'music_list': music_list}
@@ -38,19 +40,22 @@ def music_delete(request, music_id):
     music = get_object_or_404(Music, pk=music_id)
     if request.user != music.author:
         messages.error(request, '삭제권한이 없습니다')
-        return redirect('pybo:detail', question_id=music.id)
+        return redirect('pybo:detail', music_id=music.id)
     music.delete()
     return redirect('pickever:index')
 
+
 @login_required(login_url='common:login')
-def report_create(request):
+def report_create(request, music_id):
+    music = get_object_or_404(Music, pk=music_id)
     if request.method == 'POST':
         form = ReportForm(request.POST)
         if form.is_valid():
             report = form.save(commit=False)
             report.reporting = request.user
             report.reported = music.author
-            report.create_date = timezone.now()
+            report.reported_music = music.title
+            report.report_date = timezone.now()
             report.save()
             return redirect('pickever:index')
     else:

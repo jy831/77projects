@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('pickever', '0008_remove_music_like_count_alter_music_author'),
+        ('pickever', '0005_music_author_alter_music_voter'),
     ]
 
     operations = [
