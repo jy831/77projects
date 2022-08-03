@@ -42,7 +42,7 @@
                  {% endif %}
             </a>
                  {% if request.user != music.author %}
-                  <a href= "{% url 'pickever:report_create' %}" class="btn btn-sm btn-outline-danger">신고</a>
+                  <a href= "{% url 'pickever:report_create' music.id  %}" class="btn btn-sm btn-outline-danger">신고</a>
                  {% endif %}
             </td>
         </tr>
