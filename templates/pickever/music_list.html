@@ -33,8 +33,8 @@
             <td>{{ music.create_date.time }}</td>
             <td class="my-3">
                 <a href="javascript:void(0)" data-uri="{% url 'pickever:music_vote' music.id  %}"
-               class="recommend btn btn-sm btn-outline-secondary"> 추천
-                <span class="badge rounded-pill bg-success">{{music.voter.count}}</span>
+               class="recommend btn btn-sm btn-outline-danger"> 추천
+                <span class="badge rounded-pill bg-danger">{{music.voter.count}}</span>
             </a>
                  {% if request.user == music.author %}
                  <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-danger"
@@ -43,7 +43,7 @@
             </td>
             <td class="my-3">
                  {% if request.user != music.author %}
-                  <a href= "{% url 'pickever:report_create' %}" class="btn btn-danger">신고</a>
+                  <a href= "{% url 'pickever:report_create' %}" class="btn btn-sm btn-outline-danger">신고</a>
                  {% endif %}
             </td>
         </tr>
