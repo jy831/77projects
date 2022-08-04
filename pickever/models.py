@@ -7,7 +7,7 @@ class Music(models.Model):
     title = models.CharField(max_length=200)
     artist = models.CharField(max_length=200)
     create_date = models.DateTimeField()
-    voter = models.ManyToManyField(User, related_name='voter')
+    voter = models.ManyToManyField(User, related_name='voter', blank=True)
     def __str__(self):
         return f'{self.title} - {self.artist}'
 
