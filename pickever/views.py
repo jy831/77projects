@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import Music, Report
 from .forms import MusicForm, ReportForm
 
+
 def index(request):
     music_list = Music.objects.order_by('create_date')
     context = {'music_list': music_list}
