@@ -26,3 +26,4 @@ class ReportForm(forms.ModelForm):
             'content': '신고내용',
         }
 
+

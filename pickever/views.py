@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 from .models import Music, Report
 from .forms import MusicForm, ReportForm
 
@@ -22,12 +23,8 @@ def music_create(request):
             music.save()
             return redirect('pickever:index')
     else:
-        request_user_last_music = Music.objects.filter(id=request.user.id)
-        if request_user_last_music.exists() == False:
-            form = MusicForm()
-            context = {'form': form}
-            return render(request, 'pickever/music_form.html', context)
-        else:
+        request_user_last_music = Music.objects.filter(author=request.user)
+        if request_user_last_music.exists():
             request_user_last_music = request_user_last_music.order_by('create_date')
             request_user_last_music = request_user_last_music.last()
             last_music_time = request_user_last_music.create_date
@@ -39,6 +36,10 @@ def music_create(request):
             else:
                 messages.error(request, '10분이 지나야 어쩌구')
                 return redirect('pickever:index')
+        else:
+            form = MusicForm()
+            context = {'form': form}
+            return render(request, 'pickever/music_form.html', context)
 
 
 @login_required(login_url='common:login')
