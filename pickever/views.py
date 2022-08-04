@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-
 from .models import Music, Report
 from .forms import MusicForm, ReportForm
 
@@ -12,7 +11,6 @@ def index(request):
     music_list = Music.objects.order_by('create_date')
     context = {'music_list': music_list}
     return render(request, 'pickever/music_list.html', context)
-
 
 @login_required(login_url='common:login')
 def music_create(request):
@@ -64,5 +62,3 @@ def report_create(request, music_id):
         form = ReportForm()
     context = {'form': form}
     return render(request, 'pickever/report_form.html', context)
-
-
