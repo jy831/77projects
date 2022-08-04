@@ -34,7 +34,7 @@ def music_create(request):
                 context = {'form': form}
                 return render(request, 'pickever/music_form.html', context)
             else:
-                messages.error(request, '10분이 지나야 어쩌구')
+                messages.error(request, '선곡 이후 10분이 지나야 재선곡이 가능합니다!')
                 return redirect('pickever:index')
         else:
             form = MusicForm()
@@ -46,7 +46,7 @@ def music_create(request):
 def music_vote(request, music_id):
     music = get_object_or_404(Music, pk=music_id)
     if request.user == music.author:
-        messages.error(request, '본인이 등록한 노래는 추천할수 없습니다')
+        messages.error(request, '본인이 등록한 노래는 추천할 수 없습니다!')
     else:
         music.voter.add(request.user)
     return redirect('pickever:index')
